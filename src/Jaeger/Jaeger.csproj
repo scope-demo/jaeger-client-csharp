@@ -2,20 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageTags>jaeger;tracing;opentracing</PackageTags>
     <Description>Jaeger .NET Tracing</Description>
+    <PackageTags>jaeger;tracing;opentracing</PackageTags>
+
+    <!-- This is only a metapackage -->
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RuntimeMetadataVersion>1.0.0</RuntimeMetadataVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Jaeger.Thrift\Jaeger.Thrift.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="OpenTracing" Version="0.12.0" />
+    <!-- PrivateAssets set to None to ensure the build targets/props are propagated to parent project -->
+    <ProjectReference Include="..\Jaeger.Core\Jaeger.Core.csproj" PrivateAssets="None" />
   </ItemGroup>
 
 </Project>
