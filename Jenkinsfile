@@ -4,18 +4,18 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'COMMIT=${GIT_COMMIT} docker-compose -f ./scope/docker-compose.yml -p ${GIT_COMMIT} build'
+                sh 'COMMIT=${GIT_COMMIT} docker-compose -f ./.scope/docker-compose.yml -p ${GIT_COMMIT} build'
             }
         }
         stage('Test') {
             steps {
-                sh 'COMMIT=${GIT_COMMIT} docker-compose -f ./scope/docker-compose.yml -p ${GIT_COMMIT} up --exit-code-from=scope-test scope-test'
+                sh 'COMMIT=${GIT_COMMIT} docker-compose -f ./.scope/docker-compose.yml -p ${GIT_COMMIT} up --exit-code-from=scope-test scope-test'
             }
         }
     }
     post {
         always {
-           sh 'COMMIT=${GIT_COMMIT} docker-compose -p ${GIT_COMMIT} down -v'
+           sh 'COMMIT=${GIT_COMMIT} docker-compose -f ./.scope/docker-compose.yml -p ${GIT_COMMIT} down -v'
         }
     }
 }

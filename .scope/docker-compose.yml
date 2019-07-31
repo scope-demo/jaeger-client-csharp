@@ -3,7 +3,9 @@ version: "3.4"
 services: 
 
   scope-test:
-    build: .
+    build:
+      context: ../
+      dockerfile: ./.scope/Dockerfile
     environment: 
       - CI
       - SCOPE_APIKEY
