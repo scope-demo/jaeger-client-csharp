@@ -4,6 +4,7 @@ pipeline {
         stage('Build') {
             agent { docker 'mcr.microsoft.com/dotnet/core/sdk:2.2' }
             steps {
+                sh 'chmod +x ./entrypoint.sh'
                 sh './entrypoint.sh'
             }
         }
