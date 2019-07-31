@@ -5,6 +5,7 @@ pipeline {
             agent { docker 'mcr.microsoft.com/dotnet/core/sdk:2.2' }
             steps {
                 sh 'chmod +x ./entrypoint.sh'
+                sh 'chmod -R g+w ./'
                 sh './entrypoint.sh'
             }
         }
