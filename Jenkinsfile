@@ -1,22 +1,21 @@
 pipeline {
-    agent none
+    agent any
+
     stages {
         stage('Build') {
-            agent { docker 'mcr.microsoft.com/dotnet/core/sdk:2.2' }
             steps {
-                sh 'chmod +x ./entrypoint.sh'
-                sh 'chmod -R g+w ./'
-                sh './entrypoint.sh'
+                sh 'COMMIT=${GIT_COMMIT} docker-compose -f ./scope/docker-compose.yml -p ${GIT_COMMIT} build'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'COMMIT=${GIT_COMMIT} docker-compose -f ./scope/docker-compose.yml -p ${GIT_COMMIT} up --exit-code-from=scope-test scope-test'
             }
         }
     }
-
     post {
         always {
-            node('master') {
-                 archiveArtifacts artifacts: '/var/log/scope/scope_*.log'
-                 sh 'rm -f scope_*.log'
-            }
+           sh 'COMMIT=${GIT_COMMIT} docker-compose -p ${GIT_COMMIT} down -v'
         }
     }
 }

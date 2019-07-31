@@ -1,3 +1,5 @@
+cd ..
+
 echo Installing the ScopeAgent.Runner
 dotnet tool install -g ScopeAgent.Runner --version 0.1.10
 
